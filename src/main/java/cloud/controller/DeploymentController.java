@@ -18,7 +18,7 @@ public class DeploymentController {
     ResponseEntity<DeploymentResponseList> getAllEnvironments() {
         return ResponseEntity.ok().body(fetchEnvironmentsFromDb());
     }
-
+//
     private DeploymentResponseList fetchEnvironmentsFromDb() {
         DeploymentResponseList environments = new DeploymentResponseList();
         DeploymentResponse uat = new DeploymentResponse();
