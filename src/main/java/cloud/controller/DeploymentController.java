@@ -24,6 +24,7 @@ public class DeploymentController {
         DeploymentResponse uat = new DeploymentResponse();
         uat.setEnvironment("uat");
         uat.setRegion("us-east-1");
+
         uat.setInstanceType("t3.medium");
         uat.setReplicaCount(2);
         uat.setAutoscalingEnabled(true);
