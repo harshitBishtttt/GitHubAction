@@ -18,13 +18,13 @@ public class DeploymentController {
     ResponseEntity<DeploymentResponseList> getAllEnvironments() {
         return ResponseEntity.ok().body(fetchEnvironmentsFromDb());
     }
-//
+
+    //
     private DeploymentResponseList fetchEnvironmentsFromDb() {
         DeploymentResponseList environments = new DeploymentResponseList();
         DeploymentResponse uat = new DeploymentResponse();
         uat.setEnvironment("uat");
         uat.setRegion("us-east-1");
-
         uat.setInstanceType("t3.medium");
         uat.setReplicaCount(2);
         uat.setAutoscalingEnabled(true);
@@ -88,9 +88,8 @@ public class DeploymentController {
         production.setSslEnabled(true);
         production.setAllowedIps(Arrays.asList("0.0.0.0/0"));
         production.setConfigChecksum("abc123prod");
-        List<DeploymentResponse> list = Arrays.asList(uat, sandbox, production);
-        environments.setEnvironments(list);
-        DeploymentResponse production = new DeploymentResponse();
+
+        DeploymentResponse metal = new DeploymentResponse();
         production.setEnvironment("production");
         production.setRegion("us-east-2");
         production.setInstanceType("m5.large");
@@ -111,9 +110,8 @@ public class DeploymentController {
         production.setSslEnabled(true);
         production.setAllowedIps(Arrays.asList("0.0.0.0/0"));
         production.setConfigChecksum("abc123prod");
-        List<DeploymentResponse> list3 = Arrays.asList(uat, sandbox, production);
-        environments.setEnvironments(list);
-        DeploymentResponse production = new DeploymentResponse();
+
+        DeploymentResponse rock = new DeploymentResponse();
         production.setEnvironment("production");
         production.setRegion("us-east-2");
         production.setInstanceType("m5.large");
@@ -134,7 +132,29 @@ public class DeploymentController {
         production.setSslEnabled(true);
         production.setAllowedIps(Arrays.asList("0.0.0.0/0"));
         production.setConfigChecksum("abc123prod");
-        List<DeploymentResponse> list5 = Arrays.asList(uat, sandbox, production);
+
+        DeploymentResponse thrash = new DeploymentResponse();
+        production.setEnvironment("production");
+        production.setRegion("us-east-2");
+        production.setInstanceType("m5.large");
+        production.setReplicaCount(4);
+        production.setAutoscalingEnabled(true);
+        production.setMaxInstances(10);
+        production.setMinInstances(2);
+        production.setDatabaseUrl("prod-db.example.com");
+        production.setStorageBucket("prod-bucket");
+        production.setLoggingLevel("error");
+        production.setApiGatewayUrl("https://api.example.com");
+        production.setFeatureFlags(Arrays.asList("stableRelease", "auditTrail"));
+        production.setMaintenanceWindow("Wednesday 03:00-04:00 UTC");
+        production.setBackupEnabled(true);
+        production.setMonitoringEnabled(true);
+        production.setAlertEmail("prod-alerts@example.com");
+        production.setDeploymentVersion("v1.2.0");
+        production.setSslEnabled(true);
+        production.setAllowedIps(Arrays.asList("0.0.0.0/0"));
+        production.setConfigChecksum("abc123prod");
+        List<DeploymentResponse> list = Arrays.asList(uat, sandbox, production, metal, rock, thrash);
         environments.setEnvironments(list);
         return environments;
     }
